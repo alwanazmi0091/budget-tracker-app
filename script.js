@@ -20,7 +20,7 @@ const newAmount = document.querySelector("#new-amount");
 const cancelEditBtn = document.querySelector("#cancel-edit");
 const editExpBtn = document.querySelector("#edit-exp-btn");
 
-const monthExpensesData = JSON.parse(localStorage.getItem("month-expenses")) || [];
+let monthExpensesData = JSON.parse(localStorage.getItem("month-expenses")) || [];
 const validMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 let currentMonthOpenedId = null;
 let currentExpenseEditedId = null;
@@ -54,6 +54,19 @@ function renderMonths() {
             expenseForm.reset();
         })
 
+        const delBtn = document.createElement("button");
+        delBtn.className = "del-month-btn";
+
+        delBtn.addEventListener("click", () => {
+            deleteMonth(month.id);
+        })
+
+        const i = document.createElement("i")
+        i.className = "fa-regular fa-calendar-xmark";
+
+        delBtn.appendChild(i);
+
+        li.appendChild(delBtn);
         li.appendChild(button);
         monthList.appendChild(li);
     })
@@ -257,7 +270,26 @@ function deleteExpense(id) {
     const newExpenses = month.expenses.filter(e => e.id !== id);
     month.expenses = newExpenses;
     saveData();
+    updateMainPanelStats();
     renderExpenses();
+}
+
+function deleteMonth(id) {
+    if (!confirm("Are you sure you wanna delete this month including every expenses in it ?")) {
+        return;
+    }
+
+    monthExpensesData = monthExpensesData.filter(m => m.id !== id);
+    saveData();
+    renderMonths();
+
+    if (currentMonthOpenedId === id) {
+        currentMonthOpenedId = null;
+        mainPanelHeader.textContent = "";
+        percentageBar.style.width = "0%";
+        budgetText.textContent = "";
+        expenseList.innerHTML = "";
+    }
 }
 
 monthInputForm.addEventListener("submit", (e) => {
@@ -284,6 +316,8 @@ cancelMonthInput.addEventListener("click", () => {
 })
 
 cancelEditBtn.addEventListener("click", (e) => {
+    newExp.setCustomValidity("");
+    newAmount.setCustomValidity("");
     editDialog.close();
     currentExpenseEditedId = null;
 })
