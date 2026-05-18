@@ -57,7 +57,8 @@ function renderMonths() {
         const delBtn = document.createElement("button");
         delBtn.className = "del-month-btn";
 
-        delBtn.addEventListener("click", () => {
+        delBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
             deleteMonth(month.id);
         })
 
@@ -74,6 +75,13 @@ function renderMonths() {
 
 function addMonth() {
     const month = monthInput.value.trim().toLowerCase();
+    if (!month) {
+        monthInput.setCustomValidity("Please enter a month.");
+        monthInput.reportValidity("");
+        return;
+    }
+    monthInput.setCustomValidity("");
+
     const cleanedMonth = month[0].toUpperCase() + month.slice(1);
     const maxLimit = maxLimitInput.value.trim();
     const floatParsedLimit = parseFloat(maxLimit);
@@ -137,16 +145,17 @@ function addExpense() {
     const currentMonth = monthExpensesData.find(m => m.id === currentMonthOpenedId);
 
     const expenseInput = expInput.value.trim().toLowerCase();
-    const cleanedExp = expenseInput[0].toUpperCase() + expenseInput.slice(1);
-    const amount = amountInput.value.trim();
-    const parsedAmount = parseFloat(amount);
 
-    if (!cleanedExp) {
+    if (!expenseInput) {
         expInput.setCustomValidity("Please enter an expense.")
         expInput.reportValidity();
         return;
     }
     expInput.setCustomValidity("");
+
+    const cleanedExp = expenseInput[0].toUpperCase() + expenseInput.slice(1);
+    const amount = amountInput.value.trim();
+    const parsedAmount = parseFloat(amount);
 
     if (parsedAmount <= 0 || isNaN(parsedAmount)) {
         amountInput.setCustomValidity("Please enter a valid amount.");
@@ -236,15 +245,15 @@ function editExpense() {
     const expe = month.expenses.find(e => e.id === currentExpenseEditedId);
 
     const newExpInput = newExp.value.trim();
-    const cleanedNewExp = newExpInput[0].toUpperCase() + newExpInput.slice(1).toLowerCase();
-    const parsedNewAmount = parseFloat(newAmount.value.trim());
-
-    if (!cleanedNewExp) {
+    if (!newExpInput) {
         newExp.setCustomValidity("Please enter a valid expense.")
         newExp.reportValidity();
         return;
     }
     newExp.setCustomValidity("");
+    const cleanedNewExp = newExpInput[0].toUpperCase() + newExpInput.slice(1).toLowerCase();
+    const parsedNewAmount = parseFloat(newAmount.value.trim());
+
 
     if (parsedNewAmount <= 0 || isNaN(parsedNewAmount)) {
         newAmount.setCustomValidity("Please enter a valid amount.");
