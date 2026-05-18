@@ -164,7 +164,10 @@ function updateMainPanelStats() {
 }
 
 function addExpense() {
-  if (currentMonthOpenedId === null) return;
+  if (currentMonthOpenedId === null) {
+    alert("You can only add expenses if you have a month opened");
+    return;
+  }
 
   const currentMonth = monthExpensesData.find(
     (m) => m.id === currentMonthOpenedId,
