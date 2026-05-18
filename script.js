@@ -351,6 +351,7 @@ openMonthInputBtn.addEventListener("click", () => {
 });
 
 cancelMonthInput.addEventListener("click", () => {
+  monthInputForm.reset();
   monthInputDialog.close();
 });
 
