@@ -50,6 +50,10 @@ function renderMonths() {
     const li = document.createElement("li");
     li.className = "month";
 
+    if (month.id === currentMonthOpenedId) {
+      li.classList.add("active");
+    }
+
     const button = document.createElement("button");
     button.id = month.id;
     button.textContent = month.month;
