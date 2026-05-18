@@ -1,92 +1,117 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple Budget Tracker</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://kit.fontawesome.com/1b7fc35c65.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      src="https://kit.fontawesome.com/1b7fc35c65.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <!-- App Container -->
     <div class="container">
-        <!-- Nav Menu -->
-        <div class="side-bar" role="navigation" aria-label="Budget navigation">
-            <header class="logo-container">
-                <i class="fa-regular fa-credit-card"></i>
-                <h1>Budget Manager</h1>
-            </header>
+      <!-- Nav Menu -->
+      <div class="side-bar" role="navigation" aria-label="Budget navigation">
+        <header class="logo-container">
+          <i class="fa-regular fa-credit-card"></i>
+          <h1>Budget Manager</h1>
+        </header>
 
-            <div class="container-btn">
-                <button type="button" id="open-month-input-btn" class="open-month-input-btn">
-                    Add Month
-                    <i class="fa-regular fa-plus"></i>
-                </button>
-            </div>
-            <nav aria-label="Months">
-                <ul id="month-list" class="month-list">
-                    <!-- Months dynamically added through JS -->
-                </ul>
-            </nav>
+        <div class="container-btn">
+          <button
+            type="button"
+            id="open-month-input-btn"
+            class="open-month-input-btn"
+          >
+            Add Month
+            <i class="fa-regular fa-plus"></i>
+          </button>
         </div>
+        <nav aria-label="Months">
+          <ul id="month-list" class="month-list">
+            <!-- Months dynamically added through JS -->
+          </ul>
+        </nav>
+      </div>
 
-        <!-- Main Panel -->
-         <div class="main-panel">
-            <div class="main-panel-heading-container">
-                <h2 id="main-panel-header"></h2>
-                <div class="percentage-container">
-                    <div class="percentage-bar" id="percentage-bar"></div>
-                </div>
-                <p class="budgets" id="budgets"></p>
-            </div>
-            <div class="expense-input-container">
-                <form id="expense-form">
-                    <label for="exp-input">Expense:</label>
-                    <input type="text" id="exp-input" placeholder="What did you buy..." required>
-                    <label for="amount-input">Amount:</label>
-                    <input type="number" id="amount-input" placeholder="0.00" required>
-                    <button type="submit" id="add-exp-btn">Add Expense</button>
-                </form>
-            </div>
-            <div class="expense-list-container">
-                <h3>Transactions</h3>
-                <ul class="expense-list" id="expense-list">
-                    <!-- Expenses will be dynamically inserted through JS -->
-                </ul>
-            </div>
-         </div>
+      <!-- Main Panel -->
+      <div class="main-panel">
+        <div class="main-panel-heading-container">
+          <h2 id="main-panel-header"></h2>
+          <div class="percentage-container">
+            <div class="percentage-bar" id="percentage-bar"></div>
+          </div>
+          <p class="budgets" id="budgets"></p>
+        </div>
+        <div class="expense-input-container">
+          <form id="expense-form">
+            <label for="exp-input">Expense:</label>
+            <input
+              type="text"
+              id="exp-input"
+              placeholder="What did you buy..."
+              required
+            />
+            <label for="amount-input">Amount:</label>
+            <input
+              type="number"
+              id="amount-input"
+              placeholder="0.00"
+              required
+            />
+            <button type="submit" id="add-exp-btn">Add Expense</button>
+          </form>
+        </div>
+        <div class="expense-list-container">
+          <h3>Transactions</h3>
+          <ul class="expense-list" id="expense-list">
+            <!-- Expenses will be dynamically inserted through JS -->
+          </ul>
+        </div>
+      </div>
     </div>
     <!-- Month Input Dialog -->
     <dialog id="month-input-dialog">
-        <h2 class="dialog-heading">New Month Input</h2>
-        <form id="input-month-form">
-            <label for="month-input">Enter a Month</label>
-            <input type="text" id="month-input" placeholder="Enter a month..." required>
-            <label for="max-limit-input">Enter the Budget Limit</label>
-            <input type="number" id="max-limit-input" placeholder="0.00" required>
-            <div class="month-form-btns">
-                <button type="button" id="cancel-month-input">Cancel</button>
-                <button type="submit" id="add-month-input">Add</button>
-            </div>
-        </form>
+      <h2 class="dialog-heading">New Month Input</h2>
+      <form id="input-month-form">
+        <label for="month-input">Enter a Month</label>
+        <input
+          type="text"
+          id="month-input"
+          placeholder="Enter a month..."
+          required
+        />
+        <label for="max-limit-input">Enter the Budget Limit</label>
+        <input type="number" id="max-limit-input" placeholder="0.00" required />
+        <div class="month-form-btns">
+          <button type="button" id="cancel-month-input">Cancel</button>
+          <button type="submit" id="add-month-input">Add</button>
+        </div>
+      </form>
     </dialog>
     <!-- Edit Expense Dialog -->
-     <dialog id="edit-expense-dialog">
-        <h2 class="dialog-heading">Edit Expense</h2>
-        <form id="edit-expense-form">
-            <label for="new-exp">Expense:</label>
-            <input type="text" id="new-exp" required>
-            <label for="new-amount">Amount:</label>
-            <input type="number" id="new-amount" required>
-            <div class="edit-exp-btns">
-                <button type="button" id="cancel-edit">Cancel</button>
-                <button type="submit" id="edit-exp-btn">Edit</button>
-            </div>
-        </form>
-     </dialog>
+    <dialog id="edit-expense-dialog">
+      <h2 class="dialog-heading">Edit Expense</h2>
+      <form id="edit-expense-form">
+        <label for="new-exp">Expense:</label>
+        <input type="text" id="new-exp" required />
+        <label for="new-amount">Amount:</label>
+        <input type="number" id="new-amount" required />
+        <div class="edit-exp-btns">
+          <button type="button" id="cancel-edit">Cancel</button>
+          <button type="submit" id="edit-exp-btn">Edit</button>
+        </div>
+      </form>
+    </dialog>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
