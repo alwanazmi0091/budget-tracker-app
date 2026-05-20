@@ -159,7 +159,7 @@ function updateMainPanelStats() {
     }
     percentageBar.style.width =
       percentage > 100 ? "100%" : `${percentage.toFixed(2)}%`;
-    budgetText.textContent = `$${totalExpenses}/$${month.limit}`;
+    budgetText.textContent = `$${totalExpenses.toFixed(2)}/$${month.limit.toFixed(2)}`;
   }
 }
 
@@ -221,7 +221,7 @@ function renderExpenses() {
 
     const spanAmount = document.createElement("span");
     spanAmount.className = "expense-amount";
-    spanAmount.textContent = `$${e.amount}`;
+    spanAmount.textContent = `$${e.amount.toFixed(2)}`;
 
     const delBtn = document.createElement("button");
     delBtn.ariaLabel = "Delete expense";
@@ -264,7 +264,7 @@ function openEditExpense(id) {
   currentExpenseEditedId = id;
 
   newExp.value = expe.expense;
-  newAmount.value = expe.amount;
+  newAmount.value = expe.amount.toFixed(2);
 
   editDialog.showModal();
 }
