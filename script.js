@@ -354,14 +354,23 @@ openMonthInputBtn.addEventListener("click", () => {
 });
 
 cancelMonthInput.addEventListener("click", () => {
-  monthInputForm.reset();
   monthInputDialog.close();
 });
 
+monthInputDialog.addEventListener("close", () => {
+  monthInputForm.reset();
+  monthInput.setCustomValidity("");
+  maxLimitInput.setCustomValidity("");
+});
+
 cancelEditBtn.addEventListener("click", (e) => {
+  editDialog.close();
+});
+
+editDialog.addEventListener("close", () => {
+  editForm.reset();
   newExp.setCustomValidity("");
   newAmount.setCustomValidity("");
-  editDialog.close();
   currentExpenseEditedId = null;
 });
 
