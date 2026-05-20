@@ -19,6 +19,8 @@ const newExp = document.querySelector("#new-exp");
 const newAmount = document.querySelector("#new-amount");
 const cancelEditBtn = document.querySelector("#cancel-edit");
 const editExpBtn = document.querySelector("#edit-exp-btn");
+const errorModal = document.querySelector("#error-modal");
+const errMessage = document.querySelector("#err-message");
 
 let monthExpensesData =
   JSON.parse(localStorage.getItem("month-expenses")) || [];
@@ -38,6 +40,7 @@ const validMonths = [
 ];
 let currentMonthOpenedId = null;
 let currentExpenseEditedId = null;
+let modalTimeout;
 
 function saveData() {
   localStorage.setItem("month-expenses", JSON.stringify(monthExpensesData));
@@ -165,7 +168,9 @@ function updateMainPanelStats() {
 
 function addExpense() {
   if (currentMonthOpenedId === null) {
-    alert("You can only add expenses if you have a month opened");
+    showUniversalErrModal(
+      "You can only add expenses if you have selected a month.",
+    );
     return;
   }
 
@@ -334,6 +339,19 @@ function deleteMonth(id) {
   }
 }
 
+function showUniversalErrModal(message) {
+  errMessage.textContent = message;
+  errorModal.show();
+
+  clearTimeout(modalTimeout);
+
+  modalTimeout = setTimeout(() => {
+    if (errorModal.open) {
+      errorModal.close();
+    }
+  }, 3000);
+}
+
 monthInputForm.addEventListener("submit", (e) => {
   e.preventDefault();
   addMonth();
@@ -372,6 +390,10 @@ editDialog.addEventListener("close", () => {
   newExp.setCustomValidity("");
   newAmount.setCustomValidity("");
   currentExpenseEditedId = null;
+});
+
+errorModal.addEventListener("click", () => {
+  errorModal.close();
 });
 
 monthInput.addEventListener("input", () => monthInput.setCustomValidity(""));
