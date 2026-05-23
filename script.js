@@ -137,6 +137,11 @@ function addMonth() {
   };
 
   monthExpensesData.push(toAdd);
+
+  monthExpensesData.sort((a, b) => {
+    return validMonths.indexOf(a.month) - validMonths.indexOf(b.month);
+  });
+
   saveData();
   renderMonths();
   monthInputForm.reset();
